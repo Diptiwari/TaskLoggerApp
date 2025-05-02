@@ -1,10 +1,10 @@
-name: .NET CI
+name: .NET 9 CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -14,16 +14,19 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Setup .NET SDK
+    - name: Setup .NET 9 SDK
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '6.0.x'
+        dotnet-version: '9.0.x'  # Ensuring .NET 9 is used (Preview)
+
+    - name: Display .NET version (debugging)
+      run: dotnet --version
 
     - name: Restore dependencies
       run: dotnet restore
 
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore --configuration Release
 
-    - name: Test (skip if none)
-      run: echo "No tests yet"
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
