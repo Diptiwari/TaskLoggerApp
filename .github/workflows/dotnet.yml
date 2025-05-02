@@ -14,10 +14,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Setup .NET 9 SDK
+    - name: Setup .NET 9 SDK (Preview)
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '9.0.x'  # Ensuring .NET 9 is used (Preview)
+        dotnet-version: '9.0.x'  # Ensure .NET 9 Preview is used
+        include-prerelease: true # Allow preview SDKs to be used
 
     - name: Display .NET version (debugging)
       run: dotnet --version
